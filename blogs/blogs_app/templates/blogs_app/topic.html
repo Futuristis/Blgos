@@ -15,6 +15,9 @@
     <li>
         <p>{{entry.date_added|date:'M d, Y H:i'}}</p>
         <p>{{entry.text|linebreaks}}</p>
+        <p>
+            <a href="{% url 'blogs_app:edit_entry' entry.id %}">Edit entry</a>
+        </p>
     </li>
     {% endfor %}
 
