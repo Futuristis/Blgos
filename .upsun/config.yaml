@@ -17,8 +17,8 @@ applications:
     hooks:
       build: |
         pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements_remote.txt
+        pip install -r ../requirements.txt
+        pip install -r ../requirements_remote.txt
         # FIX: Removed the 'mkdir logs' and 'rm -rf logs' because the mount handles this folder
         python manage.py collectstatic --noinput
       deploy: |
