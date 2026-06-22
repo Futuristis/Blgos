@@ -4,6 +4,11 @@ applications:
       root: "blogs"
     type: "python:3.11"
 
+    # THIS IS WHAT WAS MISSING: Tells Upsun how to actually run your Django server
+    web:
+      commands:
+        start: "gunicorn blogs.wsgi:application --bind 0.0.0.0:$PORT --workers 3"
+
     mounts:
       "logs":
         source: local
@@ -14,9 +19,8 @@ applications:
         pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements_remote.txt
-        mkdir logs
-        python manage.py collectstatic
-        rm -rf logs
+        # FIX: Removed the 'mkdir logs' and 'rm -rf logs' because the mount handles this folder
+        python manage.py collectstatic --noinput
       deploy: |
         python manage.py migrate
 
@@ -25,7 +29,7 @@ applications:
 
 services:
   db:
-    type: postgresql:12
+    type: postgresql:15 # Upgraded from 12 to 15 (Upsun requires modern versions)
 
 routes:
   "https://{default}/":
