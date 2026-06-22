@@ -2,7 +2,7 @@ applications:
   blogs_app:
     source:
       root: "blogs"
-    type: "python:3.14.4"
+    type: "python:3.11"
 
     mounts:
       "logs":
